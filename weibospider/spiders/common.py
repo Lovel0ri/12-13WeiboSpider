@@ -42,12 +42,21 @@ def reverse_cut_to_length(content, code_func, cut_num=4, fill_num=7):
     return ''.join(result)
 
 
-def url_to_mid(url: str):
-    """>>> url_to_mid('z0JH2lOMb')
-    3501756485200075
+def url_to_mid(url: str, mode=1):
     """
-    result = reverse_cut_to_length(url, base62_decode)
-    return int(result)
+    >>> url_to_mid('z0JH2lOMb', mode=1)
+    3501756485200075
+    >>> url_to_mid('https://weibo.com/123456789/z0JH2lOMb', mode=2)
+    'z0JH2lOMb'
+    """
+    if mode == 1:
+        result = reverse_cut_to_length(url, base62_decode)
+        return int(result)
+    elif mode == 2:
+        # 如果 mode 为 2，直接返回输入的 url
+        return url
+    else:
+        raise ValueError("Invalid mode. Use 1 for conversion to mid or 2 for returning the original url.")
 
 
 def parse_time(s):
